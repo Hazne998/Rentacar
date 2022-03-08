@@ -1,0 +1,100 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-test1-B58E92B7-273B-4B8F-8C6E-B8A66263D550</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20220210200319_VezaUsera.cs" />
+    <Compile Remove="Data\Migrations\20220210200319_VezaUsera.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220210201048_User.cs" />
+    <Compile Remove="Data\Migrations\20220210201048_User.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220210235018_users.cs" />
+    <Compile Remove="Data\Migrations\20220210235018_users.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211001241_upgrejdtabela.cs" />
+    <Compile Remove="Data\Migrations\20220211001241_upgrejdtabela.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211002928_user.cs" />
+    <Compile Remove="Data\Migrations\20220211002928_user.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211003357_user.cs" />
+    <Compile Remove="Data\Migrations\20220211003357_user.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211003623_user.cs" />
+    <Compile Remove="Data\Migrations\20220211003623_user.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211003846_upgrade.cs" />
+    <Compile Remove="Data\Migrations\20220211003846_upgrade.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211004400_nova.cs" />
+    <Compile Remove="Data\Migrations\20220211004400_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211005453_nova.cs" />
+    <Compile Remove="Data\Migrations\20220211005453_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211005611_cuj.cs" />
+    <Compile Remove="Data\Migrations\20220211005611_cuj.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211005739_cuj.cs" />
+    <Compile Remove="Data\Migrations\20220211005739_cuj.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211005909_cuj.cs" />
+    <Compile Remove="Data\Migrations\20220211005909_cuj.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211010152_cuj.cs" />
+    <Compile Remove="Data\Migrations\20220211010152_cuj.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211010440_cu.cs" />
+    <Compile Remove="Data\Migrations\20220211010440_cu.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211010621_cuj.cs" />
+    <Compile Remove="Data\Migrations\20220211010621_cuj.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211015723_liste.cs" />
+    <Compile Remove="Data\Migrations\20220211015723_liste.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211015921_nova.cs" />
+    <Compile Remove="Data\Migrations\20220211015921_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211204904_kontakt.cs" />
+    <Compile Remove="Data\Migrations\20220211204904_kontakt.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211210535_kontakti.cs" />
+    <Compile Remove="Data\Migrations\20220211210535_kontakti.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211211855_dostupnost.cs" />
+    <Compile Remove="Data\Migrations\20220211211855_dostupnost.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220211212352_dostupnost.cs" />
+    <Compile Remove="Data\Migrations\20220211212352_dostupnost.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220218233830_nova.cs" />
+    <Compile Remove="Data\Migrations\20220218233830_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220218234424_nova.cs" />
+    <Compile Remove="Data\Migrations\20220218234424_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220218234538_nova.cs" />
+    <Compile Remove="Data\Migrations\20220218234538_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220218235015_nova.cs" />
+    <Compile Remove="Data\Migrations\20220218235015_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219000311_nova.cs" />
+    <Compile Remove="Data\Migrations\20220219000311_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219000416_nova.cs" />
+    <Compile Remove="Data\Migrations\20220219000416_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219000841_nova.cs" />
+    <Compile Remove="Data\Migrations\20220219000841_nova.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219001636_proba.cs" />
+    <Compile Remove="Data\Migrations\20220219001636_proba.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219001853_proba.cs" />
+    <Compile Remove="Data\Migrations\20220219001853_proba.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219002754_nova2.cs" />
+    <Compile Remove="Data\Migrations\20220219002754_nova2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220219003014_nova.cs" />
+    <Compile Remove="Data\Migrations\20220219003014_nova.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\jquery-ui-1.13.1.custom\external\jquery\jquery.js" />
+    <None Include="wwwroot\lib\jquery-ui-1.13.1.custom\jquery-ui.js" />
+    <None Include="wwwroot\lib\jquery-ui-1.13.1.custom\jquery-ui.min.js" />
+  </ItemGroup>
+
+</Project>

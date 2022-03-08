@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore
+@using RentaCar.Data
+@using RentaCar.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result,"admin"))
+{<li class="nav-item dropdown show">
+    <a class="dropdown-toggle nav-link text-dark" href="#" data-toggle="dropdown">Admin</a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Automobils" asp-action="Index">Automobili</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="TipAutomobilas" asp-action="Index">Tip automobila</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Models" asp-action="Index">Modeli</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Rents" asp-action="Index">Rent</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Lokacijas" asp-action="Index">Lokacije</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Status" asp-action="Index">Status</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="Proizvodjacs" asp-action="Index">Proizvodjaci</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="RolesManagers" asp-action="Index">Role Manager</a>
+        <a class="dropdown-item" asp-area="Admin" asp-controller="UserRoles" asp-action="Index">User Role</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Kontakt</a>
+    </div>
+</li>
+}   
