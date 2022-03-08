@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using RentaCar.Data;
+@using RentaCar.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome to Rent-a-car</h1>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Not logged in</h1>
+    </div>
+}
+
+
+
+
+<div class="modal fade" id="UserLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserLoginPartial" />
+</div>
+<div class="modal fade" id="UserRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserRegistrationPartial" />
+</div>
+
+@section Scripts{
+    <script src="~/js/UserLogin.js"></script>
+    <script src="~/js/UserRegistration.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
