@@ -23,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Kontakt</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Chat">Users Chat</a>
                         </li>
                         <partial name="_AdminMenuPartial" />
                     </ul>
@@ -45,7 +45,8 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-ui-1.13.1.custom//jquery-ui.min.js"></script>
 
     @RenderSection("Scripts", required: false)

@@ -15,7 +15,8 @@ using RentaCar.Data;
 using RentaCar.Entities;
 using RentaCar.Models;
 using RentaCar.Hubs;
-
+using IdentityServer4.Models;
+using IdentityServer4.Test;
 
 namespace RentaCar
 {
@@ -64,6 +65,7 @@ namespace RentaCar
             app.UseStaticFiles();
 
             app.UseRouting();
+            
 
             app.UseAuthentication();
             app.UseAuthorization();

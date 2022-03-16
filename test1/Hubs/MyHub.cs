@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RentaCar.Hubs
 {
     public class MyHub : Hub
     {
-        public override async Task OnConnectedAsync()
+        public async Task SendMessage(string user, string message)
         {
-            if (Context.User.Identity.Name != null)
-                await Groups.AddToGroupAsync(Context.ConnectionId, Context.User.Identity.Name);
-            await base.OnConnectedAsync();
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }
