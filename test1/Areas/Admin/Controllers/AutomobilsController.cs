@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RentaCar.Data;
 using RentaCar.Entities;
+using RentaCar.Hubs;
 
 namespace RentaCar.Areas.Admin.Controllers
 {
@@ -14,10 +17,11 @@ namespace RentaCar.Areas.Admin.Controllers
     public class AutomobilsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public AutomobilsController(ApplicationDbContext context)
+        IHubContext<MyHub> _hubContext;
+        public AutomobilsController(ApplicationDbContext context, IHubContext<MyHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: Admin/Automobils
@@ -44,7 +48,7 @@ namespace RentaCar.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(automobil);
         }
 
@@ -54,6 +58,8 @@ namespace RentaCar.Areas.Admin.Controllers
             ViewData["LokacijaId"] = new SelectList(_context.Lokacijas, "Id", "Code");
             ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Ime");
             ViewData["TipAutomobilaId"] = new SelectList(_context.TipAutomobilas, "Id", "Ime");
+
+            
             return View();
         }
 
@@ -73,6 +79,7 @@ namespace RentaCar.Areas.Admin.Controllers
             ViewData["LokacijaId"] = new SelectList(_context.Lokacijas, "Id", "Code", automobil.LokacijaId);
             ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Ime", automobil.ModelId);
             ViewData["TipAutomobilaId"] = new SelectList(_context.TipAutomobilas, "Id", "Ime", automobil.TipAutomobilaId);
+            
             return View(automobil);
         }
 
@@ -92,6 +99,8 @@ namespace RentaCar.Areas.Admin.Controllers
             ViewData["LokacijaId"] = new SelectList(_context.Lokacijas, "Id", "Code", automobil.LokacijaId);
             ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Ime", automobil.ModelId);
             ViewData["TipAutomobilaId"] = new SelectList(_context.TipAutomobilas, "Id", "Ime", automobil.TipAutomobilaId);
+            await _hubContext.Clients.Group(User.Identity.Name).SendAsync("prijemPoruke", User.Identity.Name, "novo auto");
+           
             return View(automobil);
         }
 

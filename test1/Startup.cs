@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using RentaCar.Data;
 using RentaCar.Entities;
+using RentaCar.Models;
+using RentaCar.Hubs;
+
 
 namespace RentaCar
 {
@@ -33,9 +36,13 @@ namespace RentaCar
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +52,7 @@ namespace RentaCar
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+               
             }
             else
             {
@@ -60,20 +68,22 @@ namespace RentaCar
             app.UseAuthentication();
             app.UseAuthorization();
 
+            
 
-         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "Admin",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                 );
-                
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"                  
+                 ) ;
+
+               
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<MyHub>("/myhub");
             });
 
         }

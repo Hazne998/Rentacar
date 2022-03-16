@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentaCar.Entities;
+using RentaCar.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +13,7 @@ namespace RentaCar.Data
 {
     
 
-    public class ApplicationDbContext : IdentityDbContext<Entities.ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {     
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -30,5 +31,7 @@ namespace RentaCar.Data
         public DbSet<TipAutomobila> TipAutomobilas { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+
     }
 }
