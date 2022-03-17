@@ -9,5 +9,6 @@ namespace RentaCar.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
+
     }
 }

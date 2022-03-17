@@ -33,7 +33,7 @@ namespace RentaCar.Controllers
 
        
 
-        public IActionResult Privacy()
+        public IActionResult Chat()
         {
             return View();
         }
