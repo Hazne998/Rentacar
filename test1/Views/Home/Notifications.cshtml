@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using RentaCar.Data;
+@using RentaCar.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager;
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Subscribe to Push Notifications</p>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <div id="GiveAccess" style="display:none;">
+        Give access to making notifications:
+        <button id="PromptForAccessBtn">Prompt</button>
+    </div>
+    <div id="NoSupport" style="display:none;">
+        Your browser does not support Push Notifications or you have blocked notifications
+    </div>
+    <form asp-action="Notifications" id="form" style="display:none;">
+        <label for="client">Your name: </label>
+        <input id="client" name="client" /><br />
+
+        <input id="endpoint" name="endpoint" hidden />
+        <input id="p256dh" name="p256dh" hidden />
+        <input id="auth" name="auth" hidden />
+
+        <button type="submit">Subscribe</button>
+    </form>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Register/Login to see chat</h1>
+    </div>
+}
+
+
+<div class="modal fade" id="UserLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserLoginPartial" />
+</div>
+<div class="modal fade" id="UserRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_UserRegistrationPartial" />
+</div>
+
+@section Scripts{
+    <script src="~/js/UserLogin.js"></script>
+    <script src="~/js/UserRegistration.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+
+    
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Rent-a-car</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="/manifest.json" rel="manifest" />
 </head>
 <body>
     <header>
@@ -23,6 +24,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Chat">Users Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Notifications">Notifications</a>
                         </li>
                         <partial name="_AdminMenuPartial" />
                     </ul>
@@ -44,7 +48,84 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>  
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+    <script src='https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js' type="text/javascript"></script>
+    <script src='https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js' type="text/javascript"></script>
+
+    <script>
+
+        $(function () {
+
+            var token = null;
+            var config = {
+                apiKey: "AIzaSyBkM2BcsgFUcfB5ovdGlJX-pb-pYox7WzY",
+                authDomain: "push-notification-8c16a.firebaseapp.com",
+                projectId: "push-notification-8c16a",
+                storageBucket: "push-notification-8c16a.appspot.com",
+                messagingSenderId: "782523097859",
+                appId: "1:782523097859:web:f408b85ed139a8de1c3f36",
+                measurementId: "G-M8JPL33C73"
+            };
+            firebase.initializeApp(config);
+
+            const messaging = firebase.messaging();
+
+            messaging.requestPermission()
+                .then(function () {
+                    console.log("granted");
+                    if (isTokenSentToServer()) {
+                        console.log("already granted");
+                    } else {
+                        getRegtoken();
+                    }
+                });
+
+
+            function getRegtoken() {
+                messaging.getToken().then((currentToken) => {
+                    if (currentToken) {
+                        console.log(currentToken);
+                        setTokenSentToServer(true);
+                        saveToken(currentToken)
+                        //   updateUIForPushEnabled(currentToken);
+                    } else {
+                        console.log('No Instance ID token available. Request permission to generate one.');
+                        setTokenSentToServer(false);
+                    }
+                }).catch((err) => {
+                    console.log('An error occurred while retrieving token. ', err);
+                    setTokenSentToServer(false);
+                });
+
+            }
+            function setTokenSentToServer(sent) {
+                window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+            }
+            function isTokenSentToServer() {
+                return window.localStorage.getItem('sentToServer') === '1';
+            }
+
+            messaging.onMessage(function (payload) {
+                console.log('Message received. ', payload);
+
+                notificationTitle = payload.data.title;
+                notificationOptions = {
+                    body: payload.data.body,
+                    icon: payload.data.icon
+                };
+
+             var notification = new Notification(notificationTitle, notificationOptions);
+
+            });
+
+            
+        });
+
+
+    </script>
+    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

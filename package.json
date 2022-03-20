@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase": "^9.6.9",
+    "har-validator": "^5.1.5"
+  }
+}
