@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RentaCar.Data;
+using RentaCar.Data.Migrations;
 using RentaCar.Entities;
 using RentaCar.Hubs;
 
@@ -18,10 +21,13 @@ namespace RentaCar.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
         IHubContext<MyHub> _hubContext;
-        public AutomobilsController(ApplicationDbContext context, IHubContext<MyHub> hubContext)
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public AutomobilsController(ApplicationDbContext context, IHubContext<MyHub> hubContext, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _hubContext = hubContext;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: Admin/Automobils
@@ -52,6 +58,8 @@ namespace RentaCar.Areas.Admin.Controllers
             return View(automobil);
         }
 
+        
+
         // GET: Admin/Automobils/Create
         public IActionResult Create()
         {
@@ -68,10 +76,20 @@ namespace RentaCar.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Tablice,ModelId,TipAutomobilaId,LokacijaId")] Automobil automobil)
+        public async Task<IActionResult> Create([Bind("Id,Tablice,ModelId,TipAutomobilaId,LokacijaId,SlikaFile")] Automobil automobil)
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(automobil.SlikaFile.FileName);
+                string extension = Path.GetExtension(automobil.SlikaFile.FileName);
+                automobil.Slika= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/Automobili/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await automobil.SlikaFile.CopyToAsync(fileStream);
+                }
+
                 _context.Add(automobil);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -82,6 +100,8 @@ namespace RentaCar.Areas.Admin.Controllers
             
             return View(automobil);
         }
+
+        
 
         // GET: Admin/Automobils/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -109,7 +129,7 @@ namespace RentaCar.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Tablice,ModelId,TipAutomobilaId,LokacijaId")] Automobil automobil)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Tablice,ModelId,TipAutomobilaId,LokacijaId,SlikaFile")] Automobil automobil)
         {
             if (id != automobil.Id)
             {
@@ -118,8 +138,19 @@ namespace RentaCar.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(automobil.SlikaFile.FileName);
+                    string extension = Path.GetExtension(automobil.SlikaFile.FileName);
+                    automobil.Slika = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Image/Automobili/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await automobil.SlikaFile.CopyToAsync(fileStream);
+                    }
+
                     _context.Update(automobil);
                     await _context.SaveChangesAsync();
                 }
@@ -154,6 +185,7 @@ namespace RentaCar.Areas.Admin.Controllers
                 .Include(a => a.Lokacija)
                 .Include(a => a.Model)
                 .Include(a => a.TipAutomobila)
+                
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (automobil == null)
             {
@@ -169,6 +201,14 @@ namespace RentaCar.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var automobil = await _context.Automobils.FindAsync(id);
+
+
+            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", automobil.Slika);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+
             _context.Automobils.Remove(automobil);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

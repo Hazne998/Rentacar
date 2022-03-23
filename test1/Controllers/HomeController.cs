@@ -15,7 +15,7 @@ namespace RentaCar.Controllers
     public class HomeController : Controller
     {
         
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         private UserManager<ApplicationUser> _userManager;
         private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, UserManager<ApplicationUser> userManager)

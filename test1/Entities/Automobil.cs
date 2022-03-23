@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,15 @@ namespace RentaCar.Entities
         [Display(Name = "Lokacija")]
         public int LokacijaId { get; set; }
         public Lokacija Lokacija { get; set; }
+
+        
+        [Column(TypeName ="nvarchar(100)")]
+        [Display(Name = "Slika automobila")]
+        public string Slika { get; set; }
+
+        [NotMapped]
+        [Display(Name ="Upload File")]
+        public IFormFile SlikaFile { get; set; }
 
         public IEnumerable<Rent> Rents { get; set; }
 
