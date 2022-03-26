@@ -5,38 +5,22 @@
 @inject SignInManager<ApplicationUser> SignInManager;
 
 @{
-    ViewData["Title"] = "Notifications";
+    ViewData["Title"] = "Contact";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Subscribe to Push Notifications</p>
+<p>Subscribe to Send email</p>
 
 
 @if (SignInManager.IsSignedIn(User))
 {
 
-    <div id="GiveAccess" style="display:none;">
-        Give access to making notifications:
-        <button id="PromptForAccessBtn">Prompt</button>
-    </div>
-    <div id="NoSupport" style="display:none;">
-        Your browser does not support Push Notifications or you have blocked notifications
-    </div>
-    <form asp-action="Notifications" id="form" style="display:none;">
-        <label for="client">Your name: </label>
-        <input id="client" name="client" /><br />
-
-        <input id="endpoint" name="endpoint" hidden />
-        <input id="p256dh" name="p256dh" hidden />
-        <input id="auth" name="auth" hidden />
-
-        <button type="submit">Subscribe</button>
-    </form>
+    <app-registration>Loading...</app-registration>
 }
 else
 {
     <div class="text-center">
-        <h1 class="display-4">Register/Login to see chat</h1>
+        <h1 class="display-4">Contact</h1>
     </div>
 }
 
@@ -54,7 +38,7 @@ else
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/chat.js"></script>
 
-    
+
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

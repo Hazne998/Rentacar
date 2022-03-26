@@ -6,13 +6,19 @@
     <title>@ViewData["Title"] - Rent-a-car</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/regular.css">
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/solid.css">
+    <link rel="stylesheet" href="~/lib/Font-Awesome/css/all.css">
+
     <link href="/manifest.json" rel="manifest" />
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RENT-A-CAR</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'Stencil Std, fantasy', cursive;">RENT-A-CAR</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,7 +32,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Chat">Users Chat</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Notifications">Notifications</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                         <partial name="_AdminMenuPartial" />
                     </ul>
@@ -38,6 +44,12 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+
+
+
+
+
+
         </main>
     </div>
 
@@ -115,16 +127,17 @@
                     icon: payload.data.icon
                 };
 
-             var notification = new Notification(notificationTitle, notificationOptions);
+                var notification = new Notification(notificationTitle, notificationOptions);
 
             });
 
-            
+
         });
 
 
     </script>
-    
+
+   
 
     @RenderSection("Scripts", required: false)
 </body>

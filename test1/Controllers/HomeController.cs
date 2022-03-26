@@ -38,7 +38,9 @@ namespace RentaCar.Controllers
             return View();
         }
 
-        public IActionResult Notifications()
+
+        
+        public IActionResult Contact()
         {
             return View();
         }

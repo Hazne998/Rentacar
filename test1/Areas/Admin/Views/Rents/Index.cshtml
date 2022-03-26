@@ -7,7 +7,7 @@
 <h1>Pregled Rentanja</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Dodaj novo rentanje</a>
 </p>
 <table class="table">
     <thead>
@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Prezime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RentId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.RentId"><i class="fas fa-edit"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.RentId"><i class="fas fa-info-circle"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.RentId"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
 }
